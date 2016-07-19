@@ -1,0 +1,64 @@
+<% layout('../layouts/default') %>
+<script type="text/javascript">
+
+    var myApp = angular.module('myApp', []);
+    myApp.controller('TestController', function($scope) {
+//        $scope.test = 'Hohoho';
+        $scope.change = function() {
+            console.log('foo');
+//            $scope.currentPass = 'hello'
+        };
+//        $scope.param = 'ololo';
+//        $scope.test = function() {
+//            console.log('TEST');
+//        }
+//        $scope.push = {
+//            value: 1,
+//            test: '123'
+//        }
+        //this.ctrlFn = function(){}
+    });
+
+
+</script>
+<div class="row">
+    <div class="big-box">
+        <div class="col-lg-12" ng-app="">
+            <form  action="/getdata/">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="exportType" value="csv" ng-model="exportType">
+                        csv
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="exportType" value="sql" ng-model="exportType">
+                        sql
+                    </label>
+                </div>
+                <div ng-show="exportType == 'csv'" ng-if="exportType == 'csv'">
+                    <div class="form-group">
+                        <label for="sel1">Select list:</label>
+                        <select class="form-control" id="csvSeparator" name="csvSeparator">
+                            <option value='1'>;</option>
+                            <option value='2'>|</option>
+                            <option value='3'>&</option>
+                            <option value='4'>^</option>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-info" value="Submit">
+                </div>
+
+                <div ng-show="exportType == 'sql'" ng-if="exportType == 'sql'">
+                    <div class="form-group">
+                        <label for="tblName">Table Name:</label>
+                        <input type="text" class="form-control" id="tblName" name="tblName" required>
+                    </div>
+                    <input type="submit" class="btn btn-info" value="Submit">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
