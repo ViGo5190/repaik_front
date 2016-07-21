@@ -1,7 +1,7 @@
 Repaik frontend
 ===============
 
-Used (Reapik)[https://github.com/ViGo5190/repaik] - simple json requester.
+Used [Reapik]()https://github.com/ViGo5190/repaik) - simple json requester.
 
 Start project
 -------------
