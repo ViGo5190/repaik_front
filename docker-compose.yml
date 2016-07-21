@@ -1,0 +1,5 @@
+frontend:
+  build: ./
+  container_name: frontend
+  ports:
+    - 8889:8888
