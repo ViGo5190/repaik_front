@@ -1,12 +1,9 @@
 {
-  "name": "repaik-backend",
+  "name": "repaik-backend-frontend",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "main": "app.js",
+  "author": "Stanislav Gumeniuk <i@vigo.su>",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.4.1",
