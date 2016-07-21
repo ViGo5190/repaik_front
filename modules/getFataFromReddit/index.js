@@ -6,7 +6,7 @@ var reformate = require('./reformate');
 
 var repaik = new Repaik();
 module.exports = function (req, res, next) {
-    
+
     var taskId = +req.query.task || 1;
 
     repaik.request('http://www.reddit.com/r/javascript/.json')
@@ -53,7 +53,7 @@ function task2(redditJson, query) {
             .groupBy('domain')
             .reformateData(reformate.groupedData)
             .orderBy(order)
-            .getData(); // get all you need
+            .getData();
 
         resolve(data);
     });

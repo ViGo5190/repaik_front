@@ -11,29 +11,42 @@ module.exports = function (input, params) {
 
     result.body = '';
 
+    var columnNames = getColumnNames(input, params.columnNames);
+
     if (params.createTable) {
-        result.body += getCreateTableQuery(input, tblName) + '\r\n \r\n';
+        result.body += getCreateTableQuery(input, tblName, columnNames) + '\r\n \r\n';
     }
 
-    result.body += getInsertQuery(input, tblName);
+    result.body += getInsertQuery(input, tblName, columnNames);
 
     return result;
 };
 
+function getColumnNames(input, columnNamesFromReq) {
+    return _.reduce(input[0], function (result, value, key) {
+        if (columnNamesFromReq[key]) {
+            result[key] = columnNamesFromReq[key];
+        } else {
+            result[key] = key;
+        }
 
-function getCreateTableQuery(input, tblName) {
+        return result;
+    }, {});
+}
+
+function getCreateTableQuery(input, tblName, columnNamesFromReq) {
     var createQuery = 'CREATE TABLE `' + tblName + '` (';
     createQuery += _.map(input[0], function (value, key) {
-            return '`' + key + '` text';
+            return '`' + columnNamesFromReq[key] + '` text';
         }).join(',') + ');';
 
     return createQuery;
 }
 
-function getInsertQuery(input, tblName) {
+function getInsertQuery(input, tblName, columnNamesFromReq) {
     var insertQuery = 'INSERT INTO `' + tblName + '` (';
     insertQuery += _.map(input[0], function (value, key) {
-        return '`' + key + '`';
+        return '`' + columnNamesFromReq[key] + '`';
     });
     insertQuery += ') VALUES (';
 

@@ -2,28 +2,21 @@
 <script type="text/javascript">
 
     var myApp = angular.module('myApp', []);
-    myApp.controller('TestController', function ($scope) {
-//        $scope.test = 'Hohoho';
-        $scope.change = function () {
-            console.log('foo');
-//            $scope.currentPass = 'hello'
-        };
-//        $scope.param = 'ololo';
-//        $scope.test = function() {
-//            console.log('TEST');
-//        }
-//        $scope.push = {
-//            value: 1,
-//            test: '123'
-//        }
-        //this.ctrlFn = function(){}
-    });
 
+    myApp.filter('camelCase', function () {
+        var camelCaseFilter = function (input) {
+            var words = input.split(' ');
+            for (var i = 0, len = words.length; i < len; i++)
+                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+            return words.join('');
+        };
+        return camelCaseFilter;
+    })
 
 </script>
 <div class="row">
     <div class="big-box">
-        <div class="col-lg-12" ng-app="">
+        <div class="col-lg-12" ng-app="myApp">
             <form action="/getdata/">
                 <div class="form-group">
                     <div class="radio">
@@ -40,6 +33,25 @@
                     </div>
                 </div>
 
+
+                <div ng-show="task == '1'" ng-if="task == '1'">
+
+                    <div class="form-group">
+                        <label for="csvOrderBy">Order by:</label>
+                        <select class="form-control" id="csvOrderBy" name="orderBy">
+                            <option value='created_utc'>utc creation date</option>
+                            <option value='domain'>domain</option>
+                            <option value='score'>score</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="csvOrderDirection">Order by:</label>
+                        <select class="form-control" id="csvOrderBy" name="orderDirection">
+                            <option value='asc'>asc</option>
+                            <option value='desc'>desc</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="radio">
@@ -76,34 +88,27 @@
                     <div class="checkbox">
                         <label><input type="checkbox" name="createTable" value="true">Create table</label>
                     </div>
-                </div>
 
-
-                <div ng-show="task == '1'" ng-if="task == '1'">
-
-                    <div class="form-group">
-                        <label for="csvOrderBy">Order by:</label>
-                        <select class="form-control" id="csvOrderBy" name="orderBy">
-                            <option value='created_utc'>utc creation date</option>
-                            <option value='domain'>domain</option>
-                            <option value='score'>score</option>
-                        </select>
+                    <div ng-show="task == '1'" ng-if="task == '1'"
+                         ng-repeat="value in ['id', 'title', 'utc creation date','score','domain']">
+                        <div class="form-group">
+                            <label for="clmnNm{{value| camelCase}}">Column name for `{{value}}`:</label>
+                            <input type="text" class="form-control" id="clmnNm{{value| camelCase}}"
+                                   name="clmnNm[{{value}}]" required value="{{value}}">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="csvOrderDirection">Order by:</label>
-                        <select class="form-control" id="csvOrderBy" name="orderDirection">
-                            <option value='asc'>asc</option>
-                            <option value='desc'>desc</option>
-                        </select>
+
+                    <div ng-show="task == '2'" ng-if="task == '2'"
+                         ng-repeat="value in ['domain','articles count','score summ']">
+                        <div class="form-group">
+                            <label for="clmnNm{{value| camelCase}}">Column name for `{{value}}`:</label>
+                            <input type="text" class="form-control" id="clmnNm{{value| camelCase}}"
+                                   name="clmnNm[{{value}}]" required value="{{value}}">
+                        </div>
                     </div>
-                    <input type="submit" class="btn btn-info" value="Submit">
                 </div>
 
-                <div ng-show="task == '2'" ng-if="task == '2'">
-
-                    <input type="submit" class="btn btn-info" value="Submit">
-                </div>
-
+                <input type="submit" class="btn btn-info" value="Submit">
             </form>
         </div>
     </div>
