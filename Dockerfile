@@ -1,6 +1,6 @@
+FROM node:6.0
 MAINTAINER Stanislav Gumeniuk <i@vigo.su>
 
-FROM node:6.0
 ADD . /code
 WORKDIR /code
 RUN npm i && npm i -g pm2
